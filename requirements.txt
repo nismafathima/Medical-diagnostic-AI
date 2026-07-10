@@ -1,0 +1,58 @@
+# CPU-Optimized MedAI Project - Gradio Medical AI Assistant
+# OPTIMIZED FOR FAST LOADING AND INFERENCE ON CPU
+# Converted from Streamlit to Gradio for better performance
+
+# Core Web Framework (Gradio - lighter than Streamlit)
+gradio==4.44.1
+
+# PyTorch CPU-Optimized (PyTorch 2.x has better CPU performance)
+torch==2.2.2
+torchvision==0.17.2
+
+# NLP & ML Models (Transformers with CPU optimizations)
+transformers==4.40.0
+huggingface-hub>=0.23.0,<1.0
+sentence-transformers==2.7.0
+
+# Note: Removed 'accelerate==0.29.3' as it's not needed for CPU-only inference
+
+# Speech Recognition (OpenAI Whisper - optimized)
+openai-whisper==20231117
+
+# Image Processing
+Pillow==10.3.0
+opencv-python-headless==4.9.0.80
+
+# Data Processing
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+
+# Time Series Forecasting (Prophet - with CPU optimizations)
+prophet==1.1.5
+
+# Visualization
+plotly==5.21.0
+
+# PDF Generation
+fpdf2==2.7.9
+
+# Audio Recording (Optional - if using voice input)
+soundfile==0.12.1
+
+# Vector Database (FAISS CPU)
+faiss-cpu==1.8.0
+
+# RAG Pipeline (LangChain)
+langchain==0.1.16
+langchain-community==0.0.34
+langchain-huggingface==0.0.3
+
+# OpenAI API (Optional - for GPT reports)
+openai==1.35.3
+
+# Additional optimizations
+pydantic>=2.5,<2.9
+fastapi==0.115.6
+starlette==0.41.3
+jinja2==3.1.4

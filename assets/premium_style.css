@@ -1,0 +1,1517 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MedAI Assistant — Premium Enterprise SaaS Theme
+   ─────────────────────────────────────────────────────────────────────────
+   Design language references: OpenAI, Stripe, Linear, Apple, Notion,
+   Databricks, Power BI.
+   Style: Luxury dark theme · Glassmorphism · Aurora gradients ·
+          Elevated dashboards · Micro-interactions · High accessibility.
+
+   NOTE: This file is purely presentational. No application logic, data
+   handling, or Streamlit component behavior is changed by this stylesheet.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1. FONTS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2. DESIGN TOKENS — CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ---- Core surface colors ---- */
+    --bg-void:            #05060a;
+    --bg-base:            #0a0d14;
+    --bg-elevated:        #0f1420;
+    --bg-elevated-2:      #131a28;
+    --bg-card:            rgba(255, 255, 255, 0.035);
+    --bg-card-hover:      rgba(255, 255, 255, 0.06);
+    --bg-glass:           rgba(18, 22, 34, 0.55);
+    --bg-glass-strong:    rgba(18, 22, 34, 0.78);
+
+    /* ---- Borders ---- */
+    --border-subtle:      rgba(255, 255, 255, 0.07);
+    --border-default:     rgba(255, 255, 255, 0.11);
+    --border-strong:      rgba(255, 255, 255, 0.18);
+    --border-accent:      rgba(99, 102, 241, 0.45);
+
+    /* ---- Brand / Accent gradients ---- */
+    --accent-violet:      #7c6cf6;
+    --accent-indigo:      #6366f1;
+    --accent-blue:        #3b82f6;
+    --accent-cyan:        #22d3ee;
+    --accent-teal:        #2dd4bf;
+    --accent-emerald:     #22c55e;
+    --accent-amber:       #f59e0b;
+    --accent-rose:        #f43f5e;
+    --accent-red:         #ef4444;
+
+    --gradient-aurora-1:  radial-gradient(ellipse 80% 60% at 15% 10%, rgba(124,108,246,0.28), transparent 60%);
+    --gradient-aurora-2:  radial-gradient(ellipse 70% 50% at 85% 15%, rgba(34,211,238,0.22), transparent 60%);
+    --gradient-aurora-3:  radial-gradient(ellipse 65% 55% at 50% 100%, rgba(45,212,191,0.18), transparent 60%);
+    --gradient-brand:     linear-gradient(120deg, #7c6cf6 0%, #6366f1 35%, #3b82f6 70%, #22d3ee 100%);
+    --gradient-brand-soft:linear-gradient(120deg, rgba(124,108,246,0.16), rgba(34,211,238,0.10));
+    --gradient-success:   linear-gradient(120deg, #16a34a, #22c55e);
+    --gradient-warning:   linear-gradient(120deg, #f59e0b, #fbbf24);
+    --gradient-danger:    linear-gradient(120deg, #dc2626, #ef4444);
+
+    /* ---- Text ---- */
+    --text-primary:       #f4f6fb;
+    --text-secondary:     #aab2c5;
+    --text-tertiary:      #6f7893;
+    --text-disabled:      #4a5063;
+    --text-on-accent:     #ffffff;
+
+    /* ---- Radii ---- */
+    --radius-xs:  6px;
+    --radius-sm:  10px;
+    --radius-md:  14px;
+    --radius-lg:  20px;
+    --radius-xl:  28px;
+    --radius-pill: 999px;
+
+    /* ---- Shadows / elevation ---- */
+    --shadow-xs:  0 1px 2px rgba(0,0,0,0.35);
+    --shadow-sm:  0 2px 8px rgba(0,0,0,0.32), 0 1px 2px rgba(0,0,0,0.28);
+    --shadow-md:  0 8px 24px rgba(0,0,0,0.38), 0 2px 6px rgba(0,0,0,0.24);
+    --shadow-lg:  0 20px 48px rgba(0,0,0,0.45), 0 6px 16px rgba(0,0,0,0.30);
+    --shadow-glow-violet: 0 0 0 1px rgba(124,108,246,0.35), 0 8px 30px rgba(124,108,246,0.25);
+    --shadow-glow-cyan:   0 0 0 1px rgba(34,211,238,0.30), 0 8px 30px rgba(34,211,238,0.18);
+
+    /* ---- Motion ---- */
+    --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-decel:      cubic-bezier(0, 0, 0.2, 1);
+    --ease-accel:      cubic-bezier(0.4, 0, 1, 1);
+    --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast:   120ms;
+    --duration-base:   220ms;
+    --duration-slow:   420ms;
+
+    /* ---- Spacing scale ---- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+}
+
+/* Fix a malformed token above defensively re-declared correctly */
+:root {
+    --gradient-warning: linear-gradient(120deg, #f59e0b, #fbbf24);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* The application is designed dark-first; light-scheme overrides are
+           intentionally minimal so the experience stays consistent and on-brand. */
+        --text-tertiary: #6f7893;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3. GLOBAL RESET & BASE SURFACES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html, body, [class*="css"], .stApp, .main, .block-container {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.18) transparent;
+}
+
+::selection {
+    background: rgba(124, 108, 246, 0.35);
+    color: #ffffff;
+}
+
+/* ---- Root Streamlit app shell + animated aurora backdrop ---- */
+.stApp {
+    background:
+        var(--gradient-aurora-1),
+        var(--gradient-aurora-2),
+        var(--gradient-aurora-3),
+        var(--bg-void) !important;
+    background-attachment: fixed;
+    position: relative;
+    animation: auroraDrift 26s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+    0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+    50%  { background-position: 8% 6%,  92% 10%, 45% 92%, 0 0; }
+    100% { background-position: 0% 0%,  100% 0%, 50% 100%, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stApp { animation: none !important; }
+}
+
+/* Subtle noise / vignette overlay for depth, non-interactive */
+.stApp::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 120% 90% at 50% -10%, rgba(255,255,255,0.03), transparent 55%);
+    z-index: 0;
+}
+
+.block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important;
+    max-width: 1280px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hide default Streamlit chrome for a cleaner enterprise shell */
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    backdrop-filter: blur(6px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4. TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+/* App title — treated as hero heading with gradient text, Stripe/Linear style */
+.block-container h1:first-of-type,
+h1#multimodal-medai-assistant {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.2rem;
+    animation: fadeSlideUp var(--duration-slow) var(--ease-decel);
+}
+
+.block-container h1 + p em,
+.block-container h1 ~ p:first-of-type {
+    color: var(--text-secondary);
+    font-size: 1.02rem;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+h3 {
+    font-size: 1.12rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+p, span, label, .stMarkdown {
+    color: var(--text-secondary);
+}
+
+code {
+    font-family: 'JetBrains Mono', monospace !important;
+    background: rgba(124, 108, 246, 0.12) !important;
+    color: #c7d2fe !important;
+    border: 1px solid rgba(124, 108, 246, 0.25);
+    border-radius: var(--radius-xs);
+    padding: 1px 6px !important;
+    font-size: 0.85em !important;
+}
+
+a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-standard);
+}
+a:hover { color: var(--accent-blue); text-decoration: underline; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   5. FADE / SLIDE ANIMATIONS (shared)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124,108,246,0.35); }
+    50%      { box-shadow: 0 0 0 8px rgba(124,108,246,0); }
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-6px); }
+}
+
+.stMarkdown, .element-container {
+    animation: fadeIn var(--duration-base) var(--ease-standard);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   6. SIDEBAR — GLASS NAVIGATION PANEL
+   ═══════════════════════════════════════════════════════════════════════ */
+
+section[data-testid="stSidebar"] {
+    background: var(--bg-glass-strong) !important;
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border-right: 1px solid var(--border-subtle);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.30);
+}
+
+section[data-testid="stSidebar"] > div {
+    padding-top: 1.2rem;
+}
+
+section[data-testid="stSidebar"] h2 {
+    font-size: 1.15rem;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
+section[data-testid="stSidebar"] h3 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-tertiary);
+    font-weight: 700;
+    margin-top: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+section[data-testid="stSidebar"] hr {
+    border-color: var(--border-subtle);
+    margin: 0.9rem 0;
+}
+
+section[data-testid="stSidebar"] .stCaption {
+    color: var(--text-tertiary);
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+/* ---- Sidebar radio (page navigation) rendered as premium pill nav ---- */
+section[data-testid="stSidebar"] div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label {
+    position: relative;
+    padding: 10px 14px !important;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    background: rgba(255,255,255,0.02);
+    transition: background var(--duration-base) var(--ease-standard),
+                border-color var(--duration-base) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
+    cursor: pointer;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-default);
+    transform: translateX(2px);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"],
+section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+    background: var(--gradient-brand-soft);
+    border-color: var(--border-accent);
+    box-shadow: inset 0 0 0 1px rgba(124,108,246,0.18);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label p {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    font-size: 0.92rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   7. BUTTONS — PRIMARY / SECONDARY / DOWNLOAD (micro-interactions)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.stButton > button,
+.stDownloadButton > button {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm) !important;
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    padding: 0.6rem 1.3rem !important;
+    border: 1px solid var(--border-default) !important;
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    backdrop-filter: blur(10px);
+    transition: transform var(--duration-fast) var(--ease-spring),
+                box-shadow var(--duration-base) var(--ease-standard),
+                border-color var(--duration-base) var(--ease-standard),
+                background var(--duration-base) var(--ease-standard);
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-md);
+    background: var(--bg-card-hover) !important;
+}
+
+.stButton > button:active,
+.stDownloadButton > button:active {
+    transform: translateY(0px) scale(0.98);
+}
+
+.stButton > button:focus-visible,
+.stDownloadButton > button:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+}
+
+/* Primary (type="primary") — gradient brand button, Stripe-esque CTA */
+.stButton > button[kind="primary"],
+.stButton > button[data-testid="baseButton-primary"] {
+    background: var(--gradient-brand) !important;
+    border: none !important;
+    color: #ffffff !important;
+    box-shadow: var(--shadow-glow-violet);
+}
+
+.stButton > button[kind="primary"]:hover,
+.stButton > button[data-testid="baseButton-primary"]:hover {
+    box-shadow: 0 0 0 1px rgba(124,108,246,0.5), 0 12px 36px rgba(124,108,246,0.35);
+    filter: brightness(1.06);
+}
+
+/* Shimmer sweep on primary buttons for a premium "alive" feel */
+.stButton > button[kind="primary"]::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 40%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: skewX(-20deg);
+    transition: left var(--duration-slow) var(--ease-standard);
+}
+.stButton > button[kind="primary"]:hover::after { left: 130%; }
+
+.stButton > button:disabled {
+    opacity: 0.45 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    cursor: not-allowed;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   8. INPUTS — TEXT / NUMBER / SELECT / TEXTAREA / RADIO
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.stTextInput > div > div,
+.stNumberInput > div > div,
+.stTextArea > div > div,
+div[data-baseweb="select"] > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-sm) !important;
+    backdrop-filter: blur(8px);
+    transition: border-color var(--duration-base) var(--ease-standard),
+                box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.stTextInput > div > div:focus-within,
+.stNumberInput > div > div:focus-within,
+.stTextArea > div > div:focus-within,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: var(--accent-indigo) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18) !important;
+}
+
+input, textarea {
+    color: var(--text-primary) !important;
+    font-size: 0.92rem !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--text-disabled) !important;
+}
+
+/* Radio (horizontal input-method switch etc.) */
+div[role="radiogroup"] {
+    gap: 4px;
+}
+
+div[role="radiogroup"] label {
+    color: var(--text-secondary);
+    transition: color var(--duration-base) var(--ease-standard);
+}
+
+/* File uploader — premium dropzone */
+[data-testid="stFileUploaderDropzone"] {
+    background: var(--bg-card) !important;
+    border: 1.5px dashed var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    transition: border-color var(--duration-base) var(--ease-standard),
+                background var(--duration-base) var(--ease-standard);
+}
+
+[data-testid="stFileUploaderDropzone"]:hover {
+    border-color: var(--accent-cyan) !important;
+    background: var(--bg-card-hover) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button {
+    border-radius: var(--radius-xs) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   9. GLASS CARDS — RESULT / REPORT / DISCLAIMER / SECTION HEADER
+   (These map 1:1 onto existing app.py CSS classes — visuals only.)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.result-card {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 22px 26px !important;
+    margin-bottom: 14px !important;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    animation: scaleIn var(--duration-slow) var(--ease-decel);
+    transition: transform var(--duration-base) var(--ease-standard),
+                box-shadow var(--duration-base) var(--ease-standard),
+                border-color var(--duration-base) var(--ease-standard);
+}
+
+.result-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient-brand);
+    opacity: 0.85;
+}
+
+.result-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-md);
+}
+
+.severity-badge {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(6px);
+    box-shadow: var(--shadow-xs);
+}
+
+.info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+}
+
+.section-header {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+}
+
+.disclaimer {
+    background: linear-gradient(120deg, rgba(239,68,68,0.10), rgba(239,68,68,0.03)) !important;
+    border: 1px solid rgba(239,68,68,0.30) !important;
+    border-left: 3px solid var(--accent-red) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 12px 18px !important;
+    font-size: 12.5px !important;
+    color: #fca5a5 !important;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-xs);
+}
+
+.report-box {
+    background: linear-gradient(150deg, rgba(34,197,94,0.08), rgba(45,212,191,0.04)) !important;
+    border: 1px solid rgba(34,197,94,0.28) !important;
+    border-left: 3px solid var(--accent-emerald) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 18px 22px !important;
+    color: #d7f9e9 !important;
+    font-size: 13.5px !important;
+    line-height: 1.75 !important;
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+    animation: fadeSlideUp var(--duration-slow) var(--ease-decel);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   10. METRICS (st.metric) — DASHBOARD KPI TILES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+div[data-testid="stMetric"] {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-base) var(--ease-standard),
+                box-shadow var(--duration-base) var(--ease-standard);
+}
+
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--text-tertiary) !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+div[data-testid="stMetricValue"] {
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   11. DATAFRAME / TABLE STYLING
+   ═══════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stDataFrame"] {
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+    border: 1px solid var(--border-default) !important;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-testid="stDataFrame"] div[role="columnheader"] {
+    background: var(--bg-elevated-2) !important;
+    color: var(--text-secondary) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+}
+
+[data-testid="stDataFrame"] div[role="row"]:hover {
+    background: rgba(124,108,246,0.06) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   12. TABS / DIVIDERS / EXPANDERS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 1.4rem 0;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 6px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: var(--text-tertiary);
+    border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+    padding: 10px 16px;
+    transition: color var(--duration-base) var(--ease-standard),
+                background var(--duration-base) var(--ease-standard);
+}
+
+.stTabs [aria-selected="true"] {
+    color: var(--text-primary) !important;
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--accent-indigo);
+}
+
+[data-testid="stExpander"] {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+[data-testid="stExpander"] summary {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   13. PLOTLY CHART CONTAINERS — GLASS FRAME
+   ═══════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stPlotlyChart"] {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-base) var(--ease-standard);
+}
+
+[data-testid="stPlotlyChart"]:hover {
+    box-shadow: var(--shadow-md);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   14. ALERTS — st.info / st.success / st.warning / st.error
+   ═══════════════════════════════════════════════════════════════════════ */
+
+div[data-testid="stAlert"] {
+    border-radius: var(--radius-sm) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-default) !important;
+    box-shadow: var(--shadow-xs);
+    animation: fadeSlideUp var(--duration-base) var(--ease-decel);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   15. IMAGES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stImage"] img {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   16. SCROLLBAR (WebKit)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.16);
+    border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   17. ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 2px !important;
+}
+
+@media (prefers-contrast: more) {
+    :root {
+        --border-default: rgba(255,255,255,0.35);
+        --text-secondary: #d8dee8;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   18. RESPONSIVE LAYOUT
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+    .block-container { max-width: 96%; }
+}
+
+@media (max-width: 900px) {
+    .block-container h1:first-of-type { font-size: 1.9rem; }
+    .result-card { padding: 16px 18px !important; }
+}
+
+@media (max-width: 640px) {
+    .block-container { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .block-container h1:first-of-type { font-size: 1.6rem; }
+    div[data-testid="stMetric"] { padding: 12px 14px; }
+    .stButton > button, .stDownloadButton > button { width: 100%; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   19. HERO / EYEBROW TAGS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.eyebrow-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-brand-soft);
+    border: 1px solid var(--border-accent);
+    color: #c9c3ff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+.eyebrow-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 8px var(--accent-cyan);
+    animation: pulseGlow 2.4s ease-in-out infinite;
+}
+
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: floatSlow 8s ease-in-out infinite;
+}
+
+.hero-orb.violet { background: var(--accent-violet); width: 220px; height: 220px; top: -60px; left: 10%; }
+.hero-orb.cyan   { background: var(--accent-cyan);   width: 180px; height: 180px; top: -40px; right: 8%; animation-delay: 1.5s; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   20. KPI GRID / DASHBOARD SUMMARY STRIP
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin: 16px 0 22px 0;
+}
+
+.kpi-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.kpi-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-accent);
+}
+
+.kpi-tile .kpi-label {
+    color: var(--text-tertiary);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.kpi-tile .kpi-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   21. SEVERITY / STATUS BADGE COLOR VARIANTS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.badge-green, .badge-low {
+    background: rgba(34,197,94,0.14);
+    color: #86efac;
+    border: 1px solid rgba(34,197,94,0.35);
+}
+.badge-orange, .badge-high, .badge-medium {
+    background: rgba(245,158,11,0.14);
+    color: #fcd34d;
+    border: 1px solid rgba(245,158,11,0.35);
+}
+.badge-red, .badge-critical {
+    background: rgba(239,68,68,0.14);
+    color: #fca5a5;
+    border: 1px solid rgba(239,68,68,0.35);
+}
+.badge-gray, .badge-unknown {
+    background: rgba(148,163,184,0.14);
+    color: #cbd5e1;
+    border: 1px solid rgba(148,163,184,0.35);
+}
+.badge-blue, .badge-info {
+    background: rgba(59,130,246,0.14);
+    color: #93c5fd;
+    border: 1px solid rgba(59,130,246,0.35);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   22. TOOLTIP (native title attribute enhancement via help icons)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stTooltipIcon"] {
+    color: var(--text-tertiary) !important;
+    transition: color var(--duration-base) var(--ease-standard);
+}
+[data-testid="stTooltipIcon"]:hover { color: var(--accent-cyan) !important; }
+
+div[data-baseweb="tooltip"] {
+    background: var(--bg-glass-strong) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-sm) !important;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-md) !important;
+    color: var(--text-primary) !important;
+    font-size: 0.8rem !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   23. LOADING SKELETON / SHIMMER (for custom skeleton placeholders)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.skeleton {
+    background: linear-gradient(90deg,
+        rgba(255,255,255,0.04) 25%,
+        rgba(255,255,255,0.09) 37%,
+        rgba(255,255,255,0.04) 63%);
+    background-size: 800px 100%;
+    animation: shimmer 1.6s linear infinite;
+    border-radius: var(--radius-sm);
+}
+
+/* Streamlit's native spinner, restyled to match brand */
+div[data-testid="stSpinner"] > div {
+    border-top-color: var(--accent-cyan) !important;
+    border-right-color: var(--accent-violet) !important;
+}
+
+div[data-testid="stSpinner"] p {
+    color: var(--text-secondary) !important;
+    font-size: 0.85rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   24. GRADIENT DIVIDERS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.gradient-divider {
+    height: 1px;
+    border: none;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    margin: 1.6rem 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   25. SIDEBAR — PATIENT DETAIL "IDENTITY CARD"
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.patient-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.patient-card .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gradient-brand);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   26. PRINT STYLES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media print {
+    section[data-testid="stSidebar"] { display: none !important; }
+    .stApp { background: #ffffff !important; animation: none !important; }
+    * { color: #111 !important; box-shadow: none !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   27. DENSE TABLE / LIST VARIANT
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.dense-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.dense-list .dense-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: var(--radius-xs);
+    font-size: 0.85rem;
+    transition: background var(--duration-fast) var(--ease-standard);
+}
+.dense-list .dense-row:nth-child(odd) { background: rgba(255,255,255,0.015); }
+.dense-list .dense-row:hover { background: var(--bg-card-hover); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   28. OPENAI / API SETTINGS PANEL (sidebar) — key entry, status pill
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.api-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.api-status-pill.connected {
+    background: rgba(34,197,94,0.14);
+    color: #86efac;
+    border: 1px solid rgba(34,197,94,0.35);
+}
+
+.api-status-pill.disconnected {
+    background: rgba(148,163,184,0.14);
+    color: #cbd5e1;
+    border: 1px solid rgba(148,163,184,0.35);
+}
+
+/* Password-type input for API keys — extra secure visual affordance */
+.stTextInput input[type="password"] {
+    font-family: 'JetBrains Mono', monospace !important;
+    letter-spacing: 0.12em;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   29. TOAST / NOTIFICATION (st.toast)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+div[data-testid="stToast"] {
+    background: var(--bg-glass-strong) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-md) !important;
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow-lg) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   30. MICRO ICON ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.icon-bounce {
+    display: inline-block;
+    animation: floatSlow 2.6s ease-in-out infinite;
+}
+
+.icon-spin {
+    display: inline-block;
+    animation: spin 1.1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   31. UTILITY SPACING / LAYOUT CLASSES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.u-mt-1 { margin-top: var(--space-1) !important; }
+.u-mt-2 { margin-top: var(--space-2) !important; }
+.u-mt-3 { margin-top: var(--space-3) !important; }
+.u-mt-4 { margin-top: var(--space-4) !important; }
+.u-mt-5 { margin-top: var(--space-5) !important; }
+.u-mb-1 { margin-bottom: var(--space-1) !important; }
+.u-mb-2 { margin-bottom: var(--space-2) !important; }
+.u-mb-3 { margin-bottom: var(--space-3) !important; }
+.u-mb-4 { margin-bottom: var(--space-4) !important; }
+.u-mb-5 { margin-bottom: var(--space-5) !important; }
+.u-flex { display: flex !important; }
+.u-flex-col { display: flex; flex-direction: column; }
+.u-gap-1 { gap: var(--space-1) !important; }
+.u-gap-2 { gap: var(--space-2) !important; }
+.u-gap-3 { gap: var(--space-3) !important; }
+.u-center { align-items: center; justify-content: center; }
+.u-between { justify-content: space-between; }
+.u-text-center { text-align: center !important; }
+.u-text-muted { color: var(--text-tertiary) !important; }
+.u-text-primary { color: var(--text-primary) !important; }
+.u-w-full { width: 100% !important; }
+.u-rounded-sm { border-radius: var(--radius-sm) !important; }
+.u-rounded-md { border-radius: var(--radius-md) !important; }
+.u-rounded-lg { border-radius: var(--radius-lg) !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   32. SELECTBOX DROPDOWN POPOVER (BaseWeb portal renders outside app root)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+div[data-baseweb="popover"] ul {
+    background: var(--bg-glass-strong) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--radius-sm) !important;
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow-lg) !important;
+}
+
+div[data-baseweb="popover"] li {
+    color: var(--text-primary) !important;
+    transition: background var(--duration-fast) var(--ease-standard);
+}
+
+div[data-baseweb="popover"] li:hover {
+    background: rgba(124,108,246,0.14) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   33. PLOTLY LEGEND / AXIS FINE-TUNING (container-level only; chart figures
+       themselves are configured in Python and are not altered here)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stPlotlyChart"] .legend text {
+    fill: var(--text-secondary) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   34. FOCUS STATES PER COMPONENT (defense-in-depth for keyboard nav)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.stSlider [role="slider"]:focus-visible,
+.stCheckbox input:focus-visible + span,
+.stRadio input:focus-visible + div {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 3px !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   35. CAPTION / SMALL TEXT
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.stCaption, [data-testid="stCaptionContainer"] {
+    color: var(--text-tertiary) !important;
+    font-size: 0.78rem !important;
+    line-height: 1.55;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   END OF FILE — MedAI Assistant Premium Enterprise Theme
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   36. PAGE HEADER BLOCKS — per-page section intros (X-Ray / Symptom /
+       Vitals / Report). Purely visual containers layered over existing
+       st.markdown("## ...") headings; no markup changes required.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.page-intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 18px;
+}
+
+.page-intro .page-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.page-intro .page-subtitle {
+    color: var(--text-tertiary);
+    font-size: 0.92rem;
+    margin-top: 4px;
+}
+
+.page-intro .page-icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-brand-soft);
+    border: 1px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   37. STEP / PROGRESS INDICATOR (X-Ray → Symptoms → Vitals → Report)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.step-tracker {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.step-tracker .step {
+    flex: 1;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--border-subtle);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-tracker .step.done {
+    background: var(--gradient-brand);
+}
+
+.step-tracker .step.active::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shimmer 1.4s linear infinite;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   38. CONFIDENCE / PROBABILITY BARS (generic, complements inline styles
+       already used for prediction bars in app.py)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.confidence-track {
+    background: rgba(255,255,255,0.06);
+    border-radius: var(--radius-pill);
+    height: 7px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.confidence-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-brand);
+    transition: width var(--duration-slow) var(--ease-decel);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   39. RECOMMENDATION / CARE-ACTION LIST STYLING
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.care-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+}
+
+.care-list li {
+    position: relative;
+    padding: 6px 0 6px 22px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.care-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--gradient-brand);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   40. EMPTY / PLACEHOLDER STATES (e.g. "Upload an X-ray to see results")
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-7) var(--space-5);
+    border: 1.5px dashed var(--border-default);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    color: var(--text-tertiary);
+}
+
+.empty-state .empty-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   41. MODEL / PIPELINE ATTRIBUTION CHIPS
+   (e.g. "EfficientNet-B0", "FAISS + Flan-T5", "GPT-4o-mini")
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.model-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.30);
+    color: #93c5fd;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: 6px;
+}
+
+.model-chip.openai {
+    background: rgba(45,212,191,0.12);
+    border-color: rgba(45,212,191,0.32);
+    color: #5eead4;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   42. QUOTE / SUMMARY CALLOUT (used for AI diagnostic summaries)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.ai-callout {
+    position: relative;
+    padding: 18px 22px 18px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(14px);
+}
+
+.ai-callout::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-brand);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   43. FINAL LAYOUT POLISH — COLUMN GAP CONSISTENCY
+   ═══════════════════════════════════════════════════════════════════════ */
+
+div[data-testid="stHorizontalBlock"] {
+    gap: 1.2rem !important;
+}
+
+div[data-testid="column"] {
+    background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   44. BRAND WORDMARK / LOGO LOCKUP (sidebar header)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.brand-lockup .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    background: var(--gradient-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-glow-violet);
+}
+
+.brand-lockup .brand-name {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   45. HIGH-DENSITY ENTERPRISE TABLE VARIANT (Power BI / Databricks style)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.enterprise-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+}
+
+.enterprise-table thead th {
+    background: var(--bg-elevated-2);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    padding: 10px 14px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+.enterprise-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.enterprise-table tbody tr:hover td {
+    background: rgba(124,108,246,0.05);
+    color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   46. SETTINGS / CONFIGURATION PANEL CARD
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.settings-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    backdrop-filter: blur(12px);
+}
+
+.settings-panel .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.settings-panel .settings-row:last-child { border-bottom: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   47. FINAL ACCESSIBILITY CHECKLIST NOTES (documentation-only, no styling)
+   ─────────────────────────────────────────────────────────────────────
+   • All interactive elements retain a visible :focus-visible outline.
+   • Color is never the sole indicator of status — severity/status badges
+     always pair color with an icon and text label in app.py.
+   • Body text maintains a minimum contrast ratio against dark surfaces
+     (text-secondary #aab2c5 on bg-base #0a0d14 ≈ 8.9:1).
+   • prefers-reduced-motion disables all decorative animation.
+   • prefers-contrast:more increases border and text contrast.
+   ═══════════════════════════════════════════════════════════════════════ */
