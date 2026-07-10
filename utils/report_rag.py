@@ -242,12 +242,15 @@ def export_pdf_report(patient_data: dict, report_text: str,
         def header(self):
             self.set_font("Helvetica", "B", 14)
             self.set_text_color(10, 60, 120)
-            self.cell(0, 10, _sanitize_pdf_text("MedAI Assistant - Diagnostic Report"), align="C",
-                      new_x="LMARGIN", new_y="NEXT")
+            self.set_x(self.l_margin)
+            safe_w = self.w - self.r_margin - self.l_margin
+            self.multi_cell(safe_w, 10, _sanitize_pdf_text("MedAI Assistant - Diagnostic Report"), align="C")
             self.set_font("Helvetica", "", 9)
             self.set_text_color(120, 120, 120)
-            self.cell(0, 6, _sanitize_pdf_text(f"Generated: {datetime.now().strftime('%d %b %Y %I:%M %p')} | AI-Assisted - Not a substitute for professional medical advice"),
-                      align="C", new_x="LMARGIN", new_y="NEXT")
+            self.set_x(self.l_margin)
+            self.multi_cell(safe_w, 6, _sanitize_pdf_text(
+                f"Generated: {datetime.now().strftime('%d %b %Y %I:%M %p')} | AI-Assisted - Not a substitute for professional medical advice"),
+                align="C")
             self.ln(4)
             self.set_draw_color(10, 60, 120)
             self.line(10, self.get_y(), 200, self.get_y())
@@ -257,16 +260,22 @@ def export_pdf_report(patient_data: dict, report_text: str,
             self.set_y(-15)
             self.set_font("Helvetica", "I", 8)
             self.set_text_color(150, 150, 150)
-            self.cell(0, 10, _sanitize_pdf_text(f"Page {self.page_no()} | MedAI - Educational Purposes Only"), align="C")
+            self.set_x(self.l_margin)
+            safe_w = self.w - self.r_margin - self.l_margin
+            self.multi_cell(safe_w, 10, _sanitize_pdf_text(f"Page {self.page_no()} | MedAI - Educational Purposes Only"), align="C")
 
     pdf = MedReport()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
 
+    # Helper for safe multi_cell width
+    safe_w = pdf.w - pdf.r_margin - pdf.l_margin
+
     # Patient info
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(20, 20, 20)
-    pdf.cell(0, 8, "Patient Information", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 8, "Patient Information")
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(60, 60, 60)
     info_rows = [
@@ -276,54 +285,66 @@ def export_pdf_report(patient_data: dict, report_text: str,
         ("Report Date", datetime.now().strftime("%d %b %Y")),
     ]
     for label, val in info_rows:
+        pdf.set_x(pdf.l_margin)
         pdf.cell(50, 6, _sanitize_pdf_text(f"  {label}:"), border=0)
-        pdf.cell(0, 6, _sanitize_pdf_text(val), new_x="LMARGIN", new_y="NEXT")
+        pdf.multi_cell(safe_w - 50, 6, _sanitize_pdf_text(val), wrapmode="CHAR")
     pdf.ln(4)
 
     # X-ray findings
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(10, 60, 120)
-    pdf.cell(0, 8, _sanitize_pdf_text("X-Ray Analysis (CNN - EfficientNet-B0)"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 8, _sanitize_pdf_text("X-Ray Analysis (CNN - EfficientNet-B0)"))
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(40, 40, 40)
-    pdf.cell(0, 6, _sanitize_pdf_text(f"  Predicted Condition: {xray_result.get('predicted', 'N/A')}"), new_x="LMARGIN", new_y="NEXT")
-    pdf.cell(0, 6, _sanitize_pdf_text(f"  Confidence: {xray_result.get('confidence', 0):.1%}"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(f"  Predicted Condition: {xray_result.get('predicted', 'N/A')}"), wrapmode="CHAR")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(f"  Confidence: {xray_result.get('confidence', 0):.1%}"), wrapmode="CHAR")
     pdf.ln(3)
 
     # Symptom analysis
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(10, 60, 120)
-    pdf.cell(0, 8, _sanitize_pdf_text("Symptom Analysis (NLP - Zero-Shot Classification)"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 8, _sanitize_pdf_text("Symptom Analysis (NLP - Zero-Shot Classification)"))
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(40, 40, 40)
-    pdf.cell(0, 6, _sanitize_pdf_text(f"  Top Prediction: {symptom_result.get('top_prediction', 'N/A')}"), new_x="LMARGIN", new_y="NEXT")
-    pdf.cell(0, 6, _sanitize_pdf_text(f"  Confidence: {symptom_result.get('top_confidence', 0):.1%}"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(f"  Top Prediction: {symptom_result.get('top_prediction', 'N/A')}"), wrapmode="CHAR")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(f"  Confidence: {symptom_result.get('top_confidence', 0):.1%}"), wrapmode="CHAR")
     detected = ", ".join(symptom_result.get("detected_symptoms", [])) or "None detected"
-    pdf.multi_cell(0, 6, _sanitize_pdf_text(f"  Detected Symptoms: {detected}"))
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(f"  Detected Symptoms: {detected}"), wrapmode="CHAR")
     pdf.ln(3)
 
     # Vitals
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(10, 60, 120)
-    pdf.cell(0, 8, _sanitize_pdf_text(f"Vitals Risk Assessment: {patient_data.get('vitals_risk', 'N/A')}"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 8, _sanitize_pdf_text(f"Vitals Risk Assessment: {patient_data.get('vitals_risk', 'N/A')}"), wrapmode="CHAR")
     pdf.ln(3)
 
     # AI Report
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(10, 60, 120)
-    pdf.cell(0, 8, _sanitize_pdf_text("AI Diagnostic Summary (RAG - Flan-T5 + FAISS)"), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 8, _sanitize_pdf_text("AI Diagnostic Summary (RAG - Flan-T5 + FAISS)"))
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(40, 40, 40)
-    pdf.multi_cell(0, 6, _sanitize_pdf_text(report_text))
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 6, _sanitize_pdf_text(report_text), wrapmode="CHAR")
     pdf.ln(4)
 
     # Disclaimer
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 60, 60)
-    pdf.multi_cell(0, 5, _sanitize_pdf_text(
+    pdf.set_x(pdf.l_margin)
+    pdf.multi_cell(safe_w, 5, _sanitize_pdf_text(
         "DISCLAIMER: This report is generated by an AI system for educational and research purposes only. "
         "It is NOT a substitute for professional medical diagnosis or treatment. "
-        "Always consult a qualified healthcare professional."))
+        "Always consult a qualified healthcare professional."), wrapmode="CHAR")
 
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
         path = tmp.name
